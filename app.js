@@ -129,4 +129,33 @@ downloadBtn.addEventListener('click', () => {
   html2pdf().from(element).set(opt).save();
 });
 
+async function fetchUsers() {
+  try {
+    const response = await axios.get('https://temp-backend-3rni.onrender.com/getusers'); // Update this URL as necessary
+    const users = response.data;
 
+    console.log(users)
+
+    const tableBody = document.getElementById('user-table-body');
+    tableBody.innerHTML = ''; // Clear existing rows
+
+    // Populate the table with user data
+    users.forEach(user => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${user.id}</td>
+            <td>${user.first_name}</td>
+            <td>${user.last_name}</td>
+            <td>${user.department}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+} catch (error) {
+    console.error("Error fetching users:", error);
+    // Optionally display an error message in the table
+    const tableBody = document.getElementById('user-table-body');
+    tableBody.innerHTML = `<tr><td colspan="4">Error fetching users. Please try again later.</td></tr>`;
+}
+}
+
+window.onload = fetchUsers;
