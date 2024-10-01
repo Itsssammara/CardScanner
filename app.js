@@ -136,7 +136,7 @@ async function fetchUsers() {
 
     console.log(users)
 
-    const tableBody = document.getElementById('user-table-body');
+    const tableBody = document.getElementById('table-body');
     tableBody.innerHTML = ''; // Clear existing rows
 
     // Populate the table with user data
@@ -153,7 +153,7 @@ async function fetchUsers() {
 } catch (error) {
     console.error("Error fetching users:", error);
     // Optionally display an error message in the table
-    const tableBody = document.getElementById('user-table-body');
+    const tableBody = document.getElementById('table-body');
     tableBody.innerHTML = `<tr><td colspan="4">Error fetching users. Please try again later.</td></tr>`;
 }
 }
