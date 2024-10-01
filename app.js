@@ -1,4 +1,6 @@
+// Remove the scan button code
 // const scanBtn = document.getElementById('scan-btn'); 
+
 const studentNameElem = document.getElementById('student-name');
 const studentSurnameElem = document.getElementById('student-surname');
 const studentDepartmentElem = document.getElementById('student-status'); // Now represents department
@@ -67,15 +69,6 @@ function showNotification(message) {
   }, 3000);
 }
 
-// Simulate the card scan process and handle sign-in/sign-out logic
-function simulateCardScan() {
-  const studentData = {
-    id: Object.keys(signedInStudents).length + 1, // Auto-generate an ID
-    name: "Ammara",
-    surname: "Hoosen",
-    department: "Studio" // Department instead of status
-  };
-
   const studentKey = `${studentData.name}-${studentData.surname}`;
   const currentTime = new Date().getTime();
 
@@ -93,18 +86,17 @@ function simulateCardScan() {
       signedInStudents[studentKey] = true;
       lastScanTime = currentTime;
 
-      scanBtn.disabled = true;
-      setTimeout(() => {
-        scanBtn.disabled = false;
-      }, 60000); // 1-minute delay
+      // Disabled scan button logic removed, as you no longer have a scan button
     } else {
       showNotification("Please wait before scanning again.");
     }
   }
 }
 
-// Attach click event to the scan button
+// Remove the scan button event listener and reference
+// scanBtn.addEventListener('click', simulateCardScan);
 
+// Attach event to download the PDF
 downloadBtn.addEventListener('click', () => {
   const element = document.body; // You can change this to any specific element you want to download
 
@@ -121,6 +113,7 @@ downloadBtn.addEventListener('click', () => {
   html2pdf().from(element).set(opt).save();
 });
 
+// Fetch and display users
 async function fetchUsers() {
   try {
     const response = await axios.get('https://temp-backend-3rni.onrender.com/getusers'); // Update this URL as necessary
@@ -147,4 +140,5 @@ async function fetchUsers() {
   }
 }
 
+// Fetch users when the page loads
 window.onload = fetchUsers;
