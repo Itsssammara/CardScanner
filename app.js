@@ -23,7 +23,8 @@ async function fetchUsers() {
           <td>${user.last_name}</td>
           <td>${user.department}</td>
         `;
-        tableBody.appendChild(row);
+        // Insert the new row at the top of the table
+        tableBody.insertBefore(row, tableBody.firstChild);
       });
     } else {
       console.log("No changes in data.");
@@ -34,8 +35,8 @@ async function fetchUsers() {
   }
 }
 
-// Poll the server for updates every 10 seconds
-setInterval(fetchUsers, 1000);
+// Poll the server for updates every second
+setInterval(fetchUsers, 1000); // Change to 1000 milliseconds for 1 second
 
 // Fetch users when the page loads
 window.onload = fetchUsers;
