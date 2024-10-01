@@ -39,28 +39,7 @@
     #student-info {
         display: none;
     }
-    
-    /* Scan Button Styling */
-    #scan-btn {
-        padding: 12px 25px;
-        background-color: #1654a5;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
-    }
-    
-    #scan-btn:hover {
-        background-color: #2b6dc4;
-    }
-    
-    /* Disabled Scan Button */
-    #scan-btn:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-    }
+
 
     /* Table Styling */
     table {

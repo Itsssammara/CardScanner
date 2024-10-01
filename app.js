@@ -1,4 +1,4 @@
-const scanBtn = document.getElementById('scan-btn');
+// const scanBtn = document.getElementById('scan-btn'); 
 const studentNameElem = document.getElementById('student-name');
 const studentSurnameElem = document.getElementById('student-surname');
 const studentDepartmentElem = document.getElementById('student-status'); // Now represents department
@@ -104,7 +104,6 @@ function simulateCardScan() {
 }
 
 // Attach click event to the scan button
-scanBtn.addEventListener('click', simulateCardScan);
 
 downloadBtn.addEventListener('click', () => {
   const element = document.body; // You can change this to any specific element you want to download
