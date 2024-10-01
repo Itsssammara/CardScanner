@@ -18,11 +18,15 @@ function displayStudentInfo(name, surname, department, status) {
   studentStatusElem.textContent = status; // On-site status displayed here
 }
 
-// Update the table to include department and checkboxes in the status column
-function addToTable(name, surname, department) {
+// Update the table to include department and IDs
+function addToTable(id, name, surname, department) {
   // Create a new row and fill it with student data
   const newRow = document.createElement('tr');
   newRow.setAttribute('id', `${name}-${surname}`); // Unique ID for each student row
+
+  const idCell = document.createElement('td');
+  idCell.textContent = id; // Numeric ID for the student
+  newRow.appendChild(idCell);
 
   const nameCell = document.createElement('td');
   nameCell.textContent = name;
@@ -36,29 +40,17 @@ function addToTable(name, surname, department) {
   departmentCell.textContent = department; // Department column
   newRow.appendChild(departmentCell);
 
-  // Create a checkbox for the Status column
-  const statusCell = document.createElement('td');
-  const checkbox = document.createElement('input');
-  checkbox.setAttribute('type', 'checkbox');
-  checkbox.setAttribute('id', `status-${name}-${surname}`); // Unique ID for the checkbox
-  checkbox.checked = true; // Automatically check the checkbox when a student is signed in
-  statusCell.appendChild(checkbox);
-  newRow.appendChild(statusCell);
-
   // Add the new row to the table
   tableBody.appendChild(newRow);
 }
 
-// Modify the removeFromTable function to handle checkbox uncheck
+// Modify the removeFromTable function to remove the row without checkbox logic
 function removeFromTable(name, surname) {
   const rowId = `${name}-${surname}`;
   const row = document.getElementById(rowId);
 
   if (row) {
-    const checkbox = document.getElementById(`status-${name}-${surname}`);
-    checkbox.checked = false; // Uncheck the checkbox when the student signs out
-
-    tableBody.removeChild(row); // Optionally, you can still remove the row if needed
+    tableBody.removeChild(row); // Remove the row when the student signs out
   }
 }
 
@@ -78,6 +70,7 @@ function showNotification(message) {
 // Simulate the card scan process and handle sign-in/sign-out logic
 function simulateCardScan() {
   const studentData = {
+    id: Object.keys(signedInStudents).length + 1, // Auto-generate an ID
     name: "Ammara",
     surname: "Hoosen",
     department: "Studio" // Department instead of status
@@ -95,7 +88,7 @@ function simulateCardScan() {
     // Check if 1 minute has passed since the last scan
     if (currentTime - lastScanTime > 60000) {
       displayStudentInfo(studentData.name, studentData.surname, studentData.department, "On-site");
-      addToTable(studentData.name, studentData.surname, studentData.department);
+      addToTable(studentData.id, studentData.name, studentData.surname, studentData.department);
 
       signedInStudents[studentKey] = true;
       lastScanTime = currentTime;
@@ -134,28 +127,25 @@ async function fetchUsers() {
     const response = await axios.get('https://temp-backend-3rni.onrender.com/getusers'); // Update this URL as necessary
     const users = response.data;
 
-    console.log(users)
+    console.log(users);
 
-    const tableBody = document.getElementById('table-body');
     tableBody.innerHTML = ''; // Clear existing rows
 
     // Populate the table with user data
-    users.forEach(user => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${user.id}</td>
-            <td>${user.first_name}</td>
-            <td>${user.last_name}</td>
-            <td>${user.department}</td>
-        `;
-        tableBody.appendChild(row);
+    users.forEach((user, index) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${index + 1}</td> <!-- ID is now the index of the user -->
+        <td>${user.first_name}</td>
+        <td>${user.last_name}</td>
+        <td>${user.department}</td>
+      `;
+      tableBody.appendChild(row);
     });
-} catch (error) {
+  } catch (error) {
     console.error("Error fetching users:", error);
-    // Optionally display an error message in the table
-    const tableBody = document.getElementById('table-body');
     tableBody.innerHTML = `<tr><td colspan="4">Error fetching users. Please try again later.</td></tr>`;
-}
+  }
 }
 
 window.onload = fetchUsers;
