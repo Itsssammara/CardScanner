@@ -91,7 +91,7 @@ function showNotification(message) {
       showNotification("Please wait before scanning again.");
     }
   }
-}
+
 
 // Remove the scan button event listener and reference
 // scanBtn.addEventListener('click', simulateCardScan);
