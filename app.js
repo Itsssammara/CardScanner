@@ -24,7 +24,7 @@ async function fetchUsers() {
           <td>${user.department}</td>
         `;
         // Insert the new row at the top of the table
-        tableBody.insertBefore(row, tableBody.firstChild);
+        // tableBody.insertBefore(row, tableBody.firstChild);
       });
     } else {
       console.log("No changes in data.");
