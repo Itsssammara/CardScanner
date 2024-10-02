@@ -9,6 +9,8 @@
         align-items: center;
         height: 100vh;
         box-sizing: border-box;
+        background-image: url('https://i.ibb.co/5Rvg6d8/03-deep-blue-1024x576.jpg');
+        background-size: cover;
     }
 
     /* Dashboard Container */
